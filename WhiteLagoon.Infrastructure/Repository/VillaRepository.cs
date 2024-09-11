@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -6,39 +7,27 @@ using System.Text;
 using System.Threading.Tasks;
 using WhiteLagood.Application.Common.Interfaces;
 using WhiteLagoon.Domain.Entities;
+using WhiteLagoon.Infrastructure.Data;
 
 namespace WhiteLagoon.Infrastructure.Repository
 {
-    public class VillaRepository : IVillaRepository
+    public class VillaRepository : Repository<Villa>, IVillaRepository
     {
-        public void Add(Villa entity)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly ApplicationDbContext _db;
 
-        public IEnumerable<Villa> Get(Expression<Func<Villa, bool>> filter, string? includeProperties = null)
+        public VillaRepository(ApplicationDbContext db) : base(db)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Villa> GetAll(Expression<Func<Villa, bool>>? filter = null, string? includeProperties = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Villa entity)
-        {
-            throw new NotImplementedException();
+            _db = db;
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _db.SaveChanges();
         }
 
         public void Update(Villa entity)
         {
-            throw new NotImplementedException();
+            _db.Villas.Update(entity);
         }
     }
 }
